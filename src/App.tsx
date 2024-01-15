@@ -5,6 +5,7 @@ import RootLayout from "./_root/RootLayout";
 import "./globals.css"; // This is where Tailwind CSS is imported
 import SigninForm from "./_auth/forms/SigninForm";
 import { Home } from "./_root/pages";
+import {Toaster} from "@/components/ui/toaster";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route index element={<Home />} />
         </Route>
       </Routes>
+      <Toaster />
     </main>
   );
 };
