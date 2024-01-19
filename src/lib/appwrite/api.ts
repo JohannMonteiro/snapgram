@@ -1,7 +1,7 @@
-import { ID } from "appwrite";
+import { ID, Query } from "appwrite";
 import { INewUser } from "@/types";
 import { account, appwriteConfig, avatars, databases } from "./config";
-import { Query } from "@tanstack/react-query";
+
 
 export async function createUserAccount(user: INewUser) {
   try {
@@ -17,7 +17,7 @@ export async function createUserAccount(user: INewUser) {
     const avatarUrl = avatars.getInitials(user.name);
 
     const newUser = await saveUserToDB({
-      accountrId: newAccount.$id,
+      accountId: newAccount.$id,
       name: newAccount.name,
       email: newAccount.email,
       username: user.username,
@@ -32,7 +32,7 @@ export async function createUserAccount(user: INewUser) {
 }
 
 export async function saveUserToDB(user: {
-  accountrId: string;
+  accountId: string;
   email: string;
   name: string;
   imageUrl: URL;
@@ -49,7 +49,6 @@ export async function saveUserToDB(user: {
     return newUser;
   } catch (error) {
     console.log(error);
-    return error;
   }
 }
 
@@ -60,19 +59,30 @@ export async function signInAccount(user: { email: string; password: string }) {
     return session;
   } catch (error) {
     console.log(error);
-    return error;
   }
 }
 
-export async function getCurrentUser() {
+// ============================== GET ACCOUNT
+export async function getAccount() {
   try {
     const currentAccount = await account.get();
+
+    return currentAccount;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+export async function getCurrentUser() {
+  try {
+    const currentAccount = await getAccount();
     if (!currentAccount) throw Error;
 
     const currentUser = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.userCollectionId,
-      [Query.equal("accountrId", currentAccount.$id)]
+      [Query.equal("accountId", currentAccount.$id)]
     );
 
     if (!currentUser) throw Error;
