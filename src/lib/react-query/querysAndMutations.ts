@@ -45,3 +45,4 @@ export const useGetRecentPosts = () => {
     queryFn: getRecentPosts(),
   });
 }
+

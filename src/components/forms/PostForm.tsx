@@ -15,7 +15,7 @@ import { Textarea } from "../ui/textarea";
 import FileUploader from "../shared/FileUploader";
 import { PostValidation } from "@/lib/validation";
 import { Models } from "appwrite";
-import { useCreatePost } from "@/lib/react-query/querysAndMutations";
+import { useCreatePost, useUpdatePost } from "@/lib/react-query/querysAndMutations";
 import { useUserContext } from "@/context/AuthContext";
 import { useToast } from "../ui/use-toast";
 import { useNavigate } from "react-router-dom";
@@ -40,6 +40,9 @@ const PostForm = ({ post }: PostFormProps) => {
       tags: post ? post?.tags.join(",") : "",
     },
   });
+
+
+
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof PostValidation>) {
@@ -140,6 +143,7 @@ const PostForm = ({ post }: PostFormProps) => {
           <Button
             type="submit"
             className="shad-button_primary whitespace_nowrap"
+            
           >
             Submit
           </Button>
