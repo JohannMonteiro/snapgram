@@ -24,7 +24,7 @@ const Explore = () => {
         </div>
       </div>
       <div className="flex-between w-full max-w-5xl mt-16 mb-7">
-      <h3 className="body-bold md:h3-bold">Popular Today</h3>
+      <h3 className="body-bold md:h3-bold">Popular</h3>
       </div>
     </div>
   );
